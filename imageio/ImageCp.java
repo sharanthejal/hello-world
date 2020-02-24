@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 //Java program to demonstrate read and write of image 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -15,6 +16,9 @@ public class ImageCp {
 	public static void main(String args[]) throws IOException {
 		int width = 1020; // width of the image
 		int height = 510; // height of the image
+
+		// This can be taken from args
+		int noOfOutPutImages = 3;
 
 		List<Integer> productIds = new ArrayList<Integer>();
 		String csvFile = "C:\\Users\\l.sharantheja\\Documents\\products.csv";
@@ -53,18 +57,30 @@ public class ImageCp {
 			image = ImageIO.read(input_file);
 
 			System.out.println("Reading complete.");
+		} catch (FileNotFoundException e) {
+			System.out.println("Error: " + e);
 		} catch (IOException e) {
 			System.out.println("Error: " + e);
+		} finally {
+			if (br != null) {
+				try {
+					br.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 
 		// WRITE IMAGE
 		try {
 			// Output file path
 			File output_file = null;
-			for (int i: productIds) {
-				output_file = new File("C:\\Users\\l.sharantheja\\Pictures\\output\\panda" + i + ".jpg");
-				// Writing to file taking type and path as
-				ImageIO.write(image, "jpg", output_file);
+			for (int i : productIds) {
+				for (int j = 0; j < noOfOutPutImages; j++) {
+					output_file = new File("C:\\Users\\l.sharantheja\\Pictures\\output1\\panda" + i+"_"+j + ".jpg");
+					// Writing to file taking type and path as
+					ImageIO.write(image, "jpg", output_file);
+				}
 			}
 
 			System.out.println("Writing complete.");
