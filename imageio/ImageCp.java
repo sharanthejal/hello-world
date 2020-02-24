@@ -20,7 +20,7 @@ public class ImageCp {
 		// This can be taken from args
 		int noOfOutPutImages = 3;
 
-		List<Integer> productIds = new ArrayList<Integer>();
+		List<String> productIds = new ArrayList<String>();
 		String csvFile = "C:\\Users\\l.sharantheja\\Documents\\products.csv";
 		BufferedReader br = null;
 		String line = "";
@@ -38,8 +38,8 @@ public class ImageCp {
 			while ((line = br.readLine()) != null) {
 
 				// use comma as separator
-				String[] country = line.split(csvSplitBy);
-				productIds.add(Integer.parseInt(country[0]));
+				String[] productId = line.split(csvSplitBy);
+				productIds.add(productId[0]);
 
 			}
 
@@ -75,9 +75,9 @@ public class ImageCp {
 		try {
 			// Output file path
 			File output_file = null;
-			for (int i : productIds) {
+			for (String i : productIds) {
 				for (int j = 0; j < noOfOutPutImages; j++) {
-					output_file = new File("C:\\Users\\l.sharantheja\\Pictures\\output1\\panda" + i+"_"+j + ".jpg");
+					output_file = new File("C:\\Users\\l.sharantheja\\Pictures\\output1\\" + i+"_"+j + ".jpg");
 					// Writing to file taking type and path as
 					ImageIO.write(image, "jpg", output_file);
 				}
